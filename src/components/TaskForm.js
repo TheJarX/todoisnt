@@ -2,12 +2,9 @@ import trash from "../images/icons/trash.svg";
 import React, {useState} from "react";
 import ID from "../idGenerator";
 
-function TaskForm({taskAction, onCancelForm, visible = false, update = false}) {
-    const [task, setTask] = useState({
-        id: "",
-        body: "",
-        isCompleted: false
-    });
+function TaskForm({taskAction, onCancelForm, onDelete, oldTask = {}, visible = false, update = false}) {
+
+    const [task, setTask] = useState(() => oldTask || {id: "", body: "", isCompleted: false});
 
     const handleTaskInputChange = e => {
         setTask({...task, body: e.target.value});
@@ -16,12 +13,13 @@ function TaskForm({taskAction, onCancelForm, visible = false, update = false}) {
     const handleSubmit = e => {
         e.preventDefault();
         if (task.body.trim().length < 3) return;
-        taskAction({...task, id: ID()});
+        const newTask = update ? task : {...task, id: ID()};
+        taskAction(newTask);
         setTask({...task, body: ""});
     };
 
     return (
-        <form className={`add-task-form ${!visible&& 'hide-form'}`} onSubmit={handleSubmit}>
+        <form className={`add-task-form ${!visible && 'hide-form'}`} onSubmit={handleSubmit}>
             <input type="text" name="task" onChange={handleTaskInputChange} className="task-title"
                    placeholder="Write a todo" value={task.body}/>
             <div className="add-task-form__footer">
@@ -31,7 +29,7 @@ function TaskForm({taskAction, onCancelForm, visible = false, update = false}) {
                 </div>
                 {update &&
                 <div className="add-task-form__right-buttons">
-                    <button className="btn">
+                    <button className="btn" onClick={() => onDelete(task)}>
                         <img src={trash} alt="delete"/>
                     </button>
                 </div>

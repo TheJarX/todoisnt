@@ -4,11 +4,10 @@ import plus from './images/icons/plus.svg'
 import TaskForm from "./components/TaskForm";
 import TasksList from "./components/TaskList";
 import "./App.css";
-import Task from "./components/Task";
 
 const getTasks = () => JSON.parse(window.localStorage.getItem('tasks')) || {};
-const consoleStyle = "font-size: 24px; color: red";
 
+// noinspection CommaExpressionJS
 const filter = (obj, predicate) =>
     Object.keys(obj)
         .filter(key => predicate(obj[key]))
@@ -47,6 +46,18 @@ function App() {
         setTaskFormVisible(true);
     };
 
+    const onUpdateTask = task => {
+        const newTasks = {...tasks};
+        newTasks[task.id] = task;
+        setTasks(newTasks);
+    };
+
+    const onDelete = taskId => {
+        const newTasks = {...tasks};
+        delete newTasks[taskId];
+        setTasks(newTasks)
+    };
+
     // const tasks = [{body: 'Code a grayscale chrome extension', isCompleted: false}]//getTasks();
     return (
         <>
@@ -58,11 +69,13 @@ function App() {
                     </div>
                     <div className="app__body">
                         <div className="app__body__todos">
-                            <TasksList tasks={filter(tasks, filterUncompleted)} onCheck={onClickCheckbox}/>
+                            <TasksList tasks={filter(tasks, filterUncompleted)} onCheck={onClickCheckbox}
+                                       onUpdate={onUpdateTask} onDelete={onDelete}/>
                         </div>
                         <div id="add_task_trigger">
-                            <TaskForm taskAction={addTask} update={false}  onCancelForm={onCancelForm} visible={taskFormVisible}/>
-                            <button className={`btn trigger ${taskFormVisible&&'hide-form'}`} onClick={showTaskForm}>
+                            <TaskForm taskAction={addTask} update={false} onCancelForm={onCancelForm}
+                                      visible={taskFormVisible}/>
+                            <button className={`btn trigger ${taskFormVisible && 'hide-form'}`} onClick={showTaskForm}>
                                 <img src={plus} alt="plus"/> Add task
                             </button>
                         </div>

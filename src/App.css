@@ -88,8 +88,6 @@ button {
 }
 
 .task {
-    /*display: flex;*/
-    /*align-items: center;*/
     border-bottom: 1px solid #2D3748;
     padding: 16px 7px;
     width: 600px;
@@ -98,6 +96,12 @@ button {
 .task__content {
     display: flex;
     align-items: center;
+    cursor: pointer;
+}
+
+.task .task__update-form {
+    position: relative;
+    left: -7px;
 }
 
 .task__checkbox {
@@ -114,15 +118,8 @@ button {
 }
 
 .hide-form {
-    /*opacity: 0;*/
     visibility: hidden;
     pointer-events: none;
     transition: 400ms;
     display: none;
 }
-
-/*.show-form {*/
-/*    opacity: 100%;*/
-/*    transition: 400ms;*/
-/*    display: block;*/
-/*}*/
