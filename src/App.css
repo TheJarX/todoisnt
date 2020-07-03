@@ -54,7 +54,7 @@ button {
 }
 
 #app__body__completed-todos {
-    margin-top: 92px;
+    /*margin-top: 92px;*/
     position: relative;
 }
 
@@ -73,6 +73,10 @@ button {
     outline: none;
 }
 
+.add-task-form {
+    margin-top: 16px;
+}
+
 .add-task-form__footer {
     display: flex;
     justify-content: space-between;
@@ -84,13 +88,41 @@ button {
 }
 
 .task {
-    display: flex;
-    align-items: center;
+    /*display: flex;*/
+    /*align-items: center;*/
     border-bottom: 1px solid #2D3748;
     padding: 16px 7px;
     width: 600px;
 }
 
+.task__content {
+    display: flex;
+    align-items: center;
+}
+
 .task__checkbox {
     margin-right: 12px;
 }
+
+.task__checkbox img{
+    cursor: pointer;
+}
+
+.completed {
+    filter: invert(.3);
+    text-decoration: line-through;
+}
+
+.hide-form {
+    /*opacity: 0;*/
+    visibility: hidden;
+    pointer-events: none;
+    transition: 400ms;
+    display: none;
+}
+
+/*.show-form {*/
+/*    opacity: 100%;*/
+/*    transition: 400ms;*/
+/*    display: block;*/
+/*}*/
