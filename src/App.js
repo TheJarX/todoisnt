@@ -38,11 +38,11 @@ function App() {
         modifyTask(task);
     };
 
-    const onCancelForm = e => {
+    const onCancelForm = () => {
         setTaskFormVisible(false);
     };
 
-    const showTaskForm = e => {
+    const showTaskForm = () => {
         setTaskFormVisible(true);
     };
 
@@ -58,7 +58,6 @@ function App() {
         setTasks(newTasks)
     };
 
-    // const tasks = [{body: 'Code a grayscale chrome extension', isCompleted: false}]//getTasks();
     return (
         <>
             <img src={logo} className="logo" alt="logo"/>
