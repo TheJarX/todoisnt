@@ -2,7 +2,8 @@ import React from "react";
 import Task from "./Task";
 
 function TasksList({tasks}) {
-    return tasks.map(task => <Task key={task.id} id={task.id} task={task}/>);
+    console.log(tasks)
+    return Object.keys(tasks).map(id => <Task key={id} id={id} task={tasks[id]}/> );
 }
 
 export default  TasksList;

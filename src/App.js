@@ -5,18 +5,18 @@ import TaskForm from "./components/TaskForm";
 import TasksList from "./components/TaskList";
 import "./App.css";
 
-const getTasks = () => JSON.parse(window.localStorage.getItem('tasks')) || [];
+const getTasks = () => JSON.parse(window.localStorage.getItem('tasks')) || {};
 const consoleStyle = "font-size: 24px; color: red";
 
 function App() {
     const [tasks, setTasks] = useState(() => getTasks());
 
-   useEffect(() => {
-       window.localStorage.setItem('tasks', JSON.stringify(tasks))
-   }, [tasks]);
+    useEffect(() => {
+        window.localStorage.setItem('tasks', JSON.stringify(tasks))
+    }, [tasks]);
 
     const addTask = (task) => {
-        setTasks([task, ...tasks]);
+        setTasks({[task.id]: task, ...tasks});
     };
 
     // const tasks = [{body: 'Code a grayscale chrome extension', isCompleted: false}]//getTasks();
