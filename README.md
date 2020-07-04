@@ -1,5 +1,16 @@
 # Todoisnt
 
+
+- [x] User can see the home page
+- [x] User can see a form to add a task
+- [x] User can add a task
+- [x] User can complete a task
+- [x] User can see completed tasks
+- [x] User can edit a task
+- [x] User can delete a task
+- [x] User can uncomplete a task
+
+
 Todoisnt was created with `create-react-app`, with a few modifications:
 
 - The app icons are inside `src/images/icons`
