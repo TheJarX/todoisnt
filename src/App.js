@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import logo from "./images/todoisnt-logo.png";
-import plus from './images/icons/plus.svg'
+import plus from './images/icons/plus.svg';
+import trash from './images/icons/trash.svg';
 import TaskForm from "./components/TaskForm";
 import TasksList from "./components/TaskList";
 import "./App.css";
@@ -16,6 +17,7 @@ const filter = (obj, predicate) =>
 function App() {
     const [tasks, setTasks] = useState(() => getTasks());
     const [taskFormVisible, setTaskFormVisible] = useState(false);
+    const [completedTasksVisible, setCompletedTasksVisible] = useState(false);
 
     useEffect(() => {
         window.localStorage.setItem('tasks', JSON.stringify(tasks))
@@ -27,6 +29,7 @@ function App() {
     const addTask = task => {
         setTasks({...tasks, [task.id]: task});
     };
+
 
     const modifyTask = newTask => {
         const newTasks = {...tasks};
@@ -46,16 +49,15 @@ function App() {
         setTaskFormVisible(true);
     };
 
-    const onUpdateTask = task => {
-        const newTasks = {...tasks};
-        newTasks[task.id] = task;
-        setTasks(newTasks);
-    };
-
     const onDelete = taskId => {
         const newTasks = {...tasks};
         delete newTasks[taskId];
         setTasks(newTasks)
+    };
+
+    const clearCompletedTasks = () => {
+        const newTasks = filter(tasks, filterUncompleted);
+        setTasks(newTasks);
     };
 
     return (
@@ -69,7 +71,7 @@ function App() {
                     <div className="app__body">
                         <div className="app__body__todos">
                             <TasksList tasks={filter(tasks, filterUncompleted)} onCheck={onClickCheckbox}
-                                       onUpdate={onUpdateTask} onDelete={onDelete}/>
+                                       onUpdate={modifyTask} onDelete={onDelete}/>
                         </div>
                         <div id="add_task_trigger">
                             <TaskForm taskAction={addTask} update={false} onCancelForm={onCancelForm}
@@ -80,12 +82,18 @@ function App() {
                         </div>
 
                         <div id="show_completed_trigger">
-                            <button className="btn trigger">
-                                Show completed
+                            <button className="btn trigger" onClick={() => { setCompletedTasksVisible(!completedTasksVisible)}}>
+                                {completedTasksVisible ? 'Hide' : 'Show'} completed tasks
                             </button>
                         </div>
-                        <div id="app__body__completed-todos">
+                        <div id="app__body__completed-todos" className={completedTasksVisible ? '' : 'hide-form'}>
                             <TasksList tasks={filter(tasks, filterCompleted)} onCheck={onClickCheckbox}/>
+                            <button
+                            className={`btn trigger btn-clear-tasks`}
+                            onClick={() => clearCompletedTasks()}>
+                                <img src={trash} alt=""/>
+                                Clear completed tasks
+                            </button>
                         </div>
 
                     </div>

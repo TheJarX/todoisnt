@@ -123,3 +123,13 @@ button {
     transition: 400ms;
     display: none;
 }
+
+.length-msg {
+    margin-top: 5px;
+    color: #ec1c1c;
+}
+
+.btn-clear-tasks {
+    position: absolute;
+    right: -16px;
+}

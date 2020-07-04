@@ -41,8 +41,7 @@ function Task({task, onCheck, onUpdate, onDelete}) {
 
     return (
         <div className={`task ${status}`}>
-            <div className={`task__content ${visible && 'hide-form'}`} onClick={!task.isCompleted ? editTask : () => {
-            }}>
+            <div className={`task__content ${visible && 'hide-form'}`} onClick={!task.isCompleted ? editTask : () => {}}>
                 <div className="task__checkbox">
                     <img src={checkboxIcon} alt={status} onMouseEnter={onHover} onMouseLeave={onHover}
                          onClick={() => onCheck({...task, isCompleted: !task.isCompleted})}/>
@@ -51,7 +50,7 @@ function Task({task, onCheck, onUpdate, onDelete}) {
             </div>
             <div className="task__update-form">
                 <TaskForm onDelete={() => onDelete(task.id)} taskAction={updateTask} onCancelForm={cancelEditTask}
-                          update={true} visible={!task.isCompleted && visible} oldTask={task}/>
+                          update={true} visible={visible} oldTask={task}/>
             </div>
         </div>
     );
